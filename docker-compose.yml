@@ -1,0 +1,33 @@
+version: "3"
+services:
+  server:
+    restart: always
+    build: server/
+    command: python ./server.py
+    ports:
+      - 1337:8080
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: postgres
+
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - test_database:/var/lib/postgresql/data
+      
+volumes:
+  test_database:
+    driver: local
