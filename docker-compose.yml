@@ -26,8 +26,7 @@ services:
     ports:
       - '5432:5432'
     volumes: 
-      - test_database:/var/lib/postgresql/data
+      - db_volume:/var/lib/postgresql/data/
       
 volumes:
-  test_database:
-    driver: local
+  db_volume:
